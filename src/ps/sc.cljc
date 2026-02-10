@@ -8,6 +8,10 @@
 #_"NOTE: eval used to handle dynamic macro values & symbol resolution in RDD"
 
 
+(defmacro spy [& args]
+  `(sc.api/spy ~@args))
+
+
 (defmacro letsc-last [& body]
   `(eval `(sc.api/letsc ~(sc.api/last-ep-id) ~~@body)))
 

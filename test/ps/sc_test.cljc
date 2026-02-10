@@ -16,7 +16,7 @@
   
   (defn bar [strs]
     (mapv (fn [s]
-            (mapv #(do (sc.api/spy)
+            (mapv #(do (sut/spy)
                        (int %))
                   s))
           strs))
@@ -62,7 +62,7 @@
   (defn collatz
     ([x] (collatz x 0))
     ([x i]
-     (sc.api/spy)
+     (sut/spy)
      (cond
        (= 1 x)   i
        (even? x) (recur (quot x 2) (inc i))
@@ -223,11 +223,11 @@
   (def z 3)
 
   (defn f1 [x y]
-    (sc.api/spy)
+    (sut/spy)
     (zipmap `[x y z] [x y z]))
 
   (defn f2 [x y z]
-    (sc.api/spy)
+    (sut/spy)
     (zipmap `[x y z] [x y z]))
 
   (t/is (= {`x 1 `y 2 `z 3} (f1 1 2)))
@@ -266,11 +266,11 @@
   (def y2 -2)
 
   (defn f1 [x2 y2 zz2]
-    (sc.api/spy)
+    (sut/spy)
     (zipmap `[x2 y2 z2 zz2] [x2 y2 z2 zz2]))
 
   (defn f2 [x2 z2]
-    (sc.api/spy)
+    (sut/spy)
     (zipmap `[x2 z2] [x2 z2]))
 
   (t/is (= {`x2 1 `y2 2 `z2 -3 `zz2 4} (f1 1 2 4)))

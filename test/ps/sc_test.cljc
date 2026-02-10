@@ -177,7 +177,43 @@
     (t/testing "starting on the same expr updates the list"
       (collatz 2)
       (t/is (= [5 16 [8] 4 2 1 2 1]
-              (sut/letsc-select-start! 'x))))))
+              (sut/letsc-select-start! 'x))))
+
+    (t/testing "letsc with defsc"
+      (sc.api/dispose-all!)
+      (sut/drop-letsc-select!)
+
+      (collatz 5)
+
+      (sut/letsc-select-start-defsc!)
+      (t/is (= 1 (eval `x)))
+      (t/is (= 5 (eval `i)))
+
+      (sut/letsc-select-first-defsc!)
+      (t/is (= 5 (eval `x)))
+      (t/is (= 0 (eval `i)))
+
+      (sut/letsc-select-last-defsc!)
+      (t/is (= 1 (eval `x)))
+      (t/is (= 5 (eval `i)))
+
+      (sut/letsc-select-prev-defsc!)
+      (sut/letsc-select-prev-defsc!)
+      (t/is (= 4 (eval `x)))
+      (t/is (= 3 (eval `i)))
+
+      (sut/letsc-select-next-defsc!)
+      (t/is (= 2 (eval `x)))
+      (t/is (= 4 (eval `i)))
+
+      (sut/letsc-select-nth-defsc! 1)
+      (t/is (= 16 (eval `x)))
+      (t/is (= 1 (eval `i)))
+
+      (sut/undefsc-last)
+
+      (t/is (undefined-sym? `x))
+      (t/is (undefined-sym? `i)))))
 
 
 (t/deftest undefsc-restore-test

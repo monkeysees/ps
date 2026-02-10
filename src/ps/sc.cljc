@@ -236,29 +236,35 @@
 (defmacro defsc! []
   `(eval `(defsc ~~*ns* ~(save-last-defsc-ep-id! (or (:selected-ep-id @letsc-select-state) (sc.api/last-ep-id))))))
 
-(defn letsc-select-start-defsc! []
-  (letsc-select-start!)
-  (defsc-selected))
+(defmacro letsc-select-start-defsc! []
+  `(do
+     (letsc-select-start!)
+     (defsc-selected)))
 
-(defn letsc-select-next-defsc! []
-  (letsc-select-next!)
-  (defsc-selected))
+(defmacro letsc-select-next-defsc! []
+  `(do
+     (letsc-select-next!)
+     (defsc-selected)))
 
-(defn letsc-select-prev-defsc! []
-  (letsc-select-prev!)
-  (defsc-selected))
+(defmacro letsc-select-prev-defsc! []
+  `(do
+     (letsc-select-prev!)
+     (defsc-selected)))
 
-(defn letsc-select-first-defsc! []
-  (letsc-select-first!)
-  (defsc-selected))
+(defmacro letsc-select-first-defsc! []
+  `(do
+     (letsc-select-first!)
+     (defsc-selected)))
 
-(defn letsc-select-last-defsc! []
-  (letsc-select-last!)
-  (defsc-selected))
+(defmacro letsc-select-last-defsc! []
+  `(do
+     (letsc-select-last!)
+     (defsc-selected)))
 
-(defn letsc-select-nth-defsc! [i]
-  (letsc-select-nth! i)
-  (defsc-selected))
+(defmacro letsc-select-nth-defsc! [i]
+  `(do
+     (letsc-select-nth! ~i)
+     (defsc-selected)))
 
 (defmacro undefsc
   "sc.api/undefsc modified to restore original values"

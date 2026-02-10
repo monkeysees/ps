@@ -257,6 +257,8 @@
 
 
 (t/deftest undefsc-all-test
+  (sut/reset-all-defsc-ep-ids!)
+
   (def this-ns (find-ns 'ps.sc-test))
   (defn this-ns? [v] (= this-ns (:ns (meta v))))
 

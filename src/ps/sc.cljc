@@ -12,6 +12,17 @@
   `(sc.api/spy ~@args))
 
 
+(defn locals-map [ep-id]
+  (let [cs (:sc.ep/code-site (sc.api/ep-info ep-id))
+        locals (:sc.cs/local-names cs)]
+    (eval `(sc.api/letsc ~ep-id
+             (zipmap '~locals [~@locals])))))
+
+(defn all-locals []
+  (->> (keys (:execution-points @sc.impl.db/db))
+       sort
+       (mapv (fn [ep-id] (locals-map ep-id)))))
+
 (defmacro letsc-last [& body]
   `(eval `(sc.api/letsc ~(sc.api/last-ep-id) ~~@body)))
 

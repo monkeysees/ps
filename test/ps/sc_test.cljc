@@ -73,6 +73,14 @@
 
     (collatz 5)
 
+    (t/is (= '[{x 5, i 0}
+               {x 16, i 1}
+               {x 8, i 2}
+               {x 4, i 3}
+               {x 2, i 4}
+               {x 1, i 5}]
+             (sut/all-locals)))
+
     (t/is (= [5 16 8 4 2 1]
              (sut/letsc-all 'x)))
     (t/is (= [0 1 2 3 4 5]
